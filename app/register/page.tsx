@@ -56,14 +56,16 @@ export default  function Register(){
   return(
     <>
       <p>{message}</p>
+      <div className="flex items-center justify-center h-screen bg-gray-200">
       <form onSubmit={submitEvent} method="POST">
-        <input onChange={changeEvent} type="text" placeholder="이메일" name="email" required />
-        <input onChange={changeEvent} type="password" placeholder="비밀번호" name="password" required />
-        <input onChange={changeEvent} type="text" placeholder="이름" name="name" required />
+        <input onChange={changeEvent} type="text" placeholder="이메일" name="email" required className="w-full px-3 py-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"/>
+        <input onChange={changeEvent} type="password" placeholder="비밀번호" name="password" required className="w-full px-3 py-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"/>
+        <input onChange={changeEvent} type="text" placeholder="이름" name="name" required className="w-full px-3 py-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"/>
         <button type="submit">가입</button>
 
 
       </form>
+      </div>
     </>
   )
 }

@@ -53,8 +53,7 @@ export default function Edit(props:editProps){
     }
   }
   const updatePost = (e: React.FormEvent<HTMLFormElement>)=>{
-    e.preventDefault();
-  
+    e.preventDefault();  
     fetch(`/api/edit/${params.id}`,{
       method: 'POST',
       headers: {

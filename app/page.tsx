@@ -38,13 +38,12 @@ export default async function Home() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-semibold">게시판</h1>
           {
-            sessions && <Link href="/write" className='bg-orange-500 text-white px-4 py-2 rounded shadow-md hover:bg-orange-600'>글쓰기</Link>
-          }
-          
+            sessions && <Link href="/write" className='bg-teal-500 text-white px-4 py-2 rounded shadow-md hover:bg-teal-600'>글쓰기</Link>
+          }          
         </div>
         <div className="bg-white shadow-md rounded-lg">
           <div className="min-w-full">
-            <ul className="bg-gray-100 flex justify-between">
+            <ul className="bg-gray-600 flex justify-between text-white">
               <li className="px-6 basis-2/12 py-3 text-center">번호</li>
               <li className="px-6 basis-6/12 py-3 text-center">제목</li>
               <li className="px-6 basis-2/12 py-3 text-center">작성자</li>
@@ -58,7 +57,7 @@ export default async function Home() {
                 const day = date.getDate().toString().padStart(2, '0')
                 const formatDate = `${year}-${month}-${day}`
                 return(
-                  <ul key={i} className='flex justify-between'>
+                  <ul key={i} className='flex justify-between hover:bg-teal-50 cursor-pointer'>
                     <li className='px-6 basis-2/12 py-3 text-center'>{results.length - i}</li>
                     <li className='px-6 basis-6/12 py-3 text-center'><Link href={`/post/${e.id}`}>{e.title}</Link></li>
                     <li className='px-6 basis-2/12 py-3 text-center'>{e.author}</li>
