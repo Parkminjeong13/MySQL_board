@@ -89,7 +89,7 @@ export default function Edit(props:editProps){
       <form method="post" onSubmit={updatePost}>
         <div className="flex flex-col items-start min-h-screen p-10 bg-gray-100">
           <div className="w-full max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
-            <input type="text" name="name" className="shadow text-gray-700 text-sm mb-4 border w-full p-2 rounded" placeholder={post[0].username} />
+            <input type="text" name="name" className="shadow text-gray-700 text-sm mb-4 border w-full p-2 rounded" placeholder={post[0].username}/>
             <input type="text" name="title" className="shadow text-gray-700 text-sm mb-4 border w-full p-2 rounded" placeholder={post[0].title} onChange={changeEvent}/>
             <textarea name="content" className="shadow text-gray-700 text-sm mb-4 border w-full p-2 h-32 rounded" placeholder={post[0].content} onChange={changeEvent}></textarea>
             <div className="flex justify-between">
