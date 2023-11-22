@@ -56,14 +56,10 @@ export default function Comment(props: CommentProps){
     })
   }, [session?.user.name, session?.user.email, id])
   const [totalComment, setTotalComment] = useState<CommentType[]>();
-
   const commentValue = (e: React.ChangeEvent<HTMLInputElement>) =>{
-    // setComment(e.target.value);
     setFormData({...formData, [e.target.name] : e.target.value});
-    // console.log(formData)
   }
   const params = useParams();
-  // console.log(params)
   useEffect(()=>{
     const fetchData = async ()=>{
       const res = await fetch(`/api/comment?id=${params.id}`)
@@ -73,10 +69,8 @@ export default function Comment(props: CommentProps){
     fetchData()
   },[params.id])
 
-  const cmtSubmit = async ()=>{
-    
+  const cmtSubmit = async ()=>{   
     try{
-
       const res = await fetch ('/api/comment', {
         method : 'POST',
         headers : {
@@ -86,28 +80,20 @@ export default function Comment(props: CommentProps){
       })
       if(res.ok){
         const data = await res.json();
-        // console.log(data);
         setTotalComment(data.result)
       }
-
     }catch(error){
       console.log(error);
     }
-
   }
-
-
-
-
   return(
     <>
       {
         session && session.user && <>
-          <p className="text-xl mb-4">댓글 목록</p>
+          <p className="text-lg mb-4">댓글 목록</p>
           {
             totalComment && totalComment.map((e,i)=>{
               const date = new Date(e.date);
-                // date.setTime(date.getTime()+(60*60*9*1000))
                 const year = date.getFullYear();
                 const month = (date.getMonth() + 1).toString().padStart(2, '0');
                 const day = date.getDate().toString().padStart(2, '0')
@@ -116,10 +102,10 @@ export default function Comment(props: CommentProps){
                 const seconds = date.getSeconds().toString().padStart(2, '0')
                 const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
               return (
-                <div key={i} className="p-2 mb-2 bg-gray-100 rounded shadow-md">
-                  <p>작성자 : {e.username}</p>
-                  <p>{e.content}</p>
-                  <p className="mt-2 text-sm">{formatDate}</p>
+                <div key={i} className="p-4 mb-4 bg-white rounded shadow-md">
+                  <p className="font-bold text-teal-500">작성자 : {e.username}</p>
+                  <p className="py-2 text-gray-700">{e.content}</p>
+                  <p className="mt-2 text-sm text-gray-500">{formatDate}</p>
                 </div>
               )
             })
@@ -130,7 +116,6 @@ export default function Comment(props: CommentProps){
           </div>
         </>
       }
-    </>
-    
+    </>    
   )
 }

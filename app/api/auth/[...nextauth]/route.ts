@@ -15,6 +15,7 @@ interface User{
   name: string;
   email: string;
   level: string;
+  nickname : string;
 }
 interface CustomSession extends Session{
   user?: User
@@ -65,7 +66,8 @@ export const authOptions : any = {
             id : userResult.id,
             name: userResult.name,
             email: userResult.email,
-            level: userResult.level
+            level: userResult.level,
+            nickname: userResult.nickname
           }
           return user;
 
@@ -94,7 +96,8 @@ export const authOptions : any = {
         token.user = {
           name : user.name,
           email : user.email,
-          level : user.level
+          level : user.level,
+          nickname : user.nickname
         };
       }
       return token

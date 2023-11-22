@@ -24,7 +24,6 @@ export default function Detail(){
       // 배열의 마지막 값을 가지고 오는 방법 pop
       const res = await fetch(`/api/post/${params.id}`);
       const data = await res.json();
-      // console.log(data);
       setPost(data.data);
       setIsLoading(false)
     }
@@ -42,8 +41,6 @@ export default function Detail(){
       })
       if(res.ok){
         const data = await res.json();
-        // console.log(data);
-        // alert('정상적으로 등록 하였습니다.');
         window.location.href = '/';
       }else{
         const errorData = await res.json();
