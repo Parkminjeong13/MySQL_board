@@ -8,7 +8,6 @@ export const GET = async (
 ) : Promise<NextResponse> =>{
 
   if(req.method === 'GET'){
-    console.log(req.nextUrl.searchParams.get("page"));
     const page = Number(req.nextUrl.searchParams.get("page") || 1);
     const perPage = 15;
     const offset = (page - 1) * perPage;
@@ -17,7 +16,6 @@ export const GET = async (
       const [results] = await db.query<RowDataPacket[]>('SELECT * FROM test.board order by date DESC limit ? offset ?', [perPage, offset]);
       const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from test.board');
       const totalCnt = countResult[0].cnt;
-      // console.log(results)
 
 
       return NextResponse.json({message: "성공", results, totalCnt, page, perPage})

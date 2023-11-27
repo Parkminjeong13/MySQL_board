@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import GithubProvider from 'next-auth/providers/github'
 import KakaoProvider from 'next-auth/providers/kakao'
 import NaverProvider from 'next-auth/providers/naver'
-import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import db from '@/db';
@@ -15,7 +14,6 @@ interface User{
   name: string;
   email: string;
   level: string;
-  nickname : string;
 }
 interface CustomSession extends Session{
   user?: User
@@ -34,10 +32,6 @@ export const authOptions : any = {
     NaverProvider({
       clientId : `${process.env.NAVER_ID}`,
       clientSecret: `${process.env.NAVER_PW}`
-    }),
-    GoogleProvider({
-      clientId : `${process.env.GOOGLE_ID}`,
-      clientSecret : `${process.env.GOOGLE_PW}`
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -66,8 +60,7 @@ export const authOptions : any = {
             id : userResult.id,
             name: userResult.name,
             email: userResult.email,
-            level: userResult.level,
-            nickname: userResult.nickname
+            level: userResult.level
           }
           return user;
 
@@ -96,8 +89,7 @@ export const authOptions : any = {
         token.user = {
           name : user.name,
           email : user.email,
-          level : user.level,
-          nickname : user.nickname
+          level : user.level
         };
       }
       return token

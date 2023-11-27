@@ -21,7 +21,6 @@ export default function Post(){
       const data = await res.json();
       setPosts(data.results);
       setTotalCnt(data.totalCnt);
-      console.log(data)
     }
     fetchData()
   }, [page])
@@ -44,7 +43,7 @@ export default function Post(){
       <div className="mx-auto max-w-7xl p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-semibold">게시판</h1>
-          <Link href="/write" className='bg-teal-500 text-white px-4 py-2 rounded shadow-md hover:bg-teal-600'>글쓰기</Link>
+          <Link href="/write" className='bg-orange-500 text-white px-4 py-2 rounded shadow-md hover:bg-orange-600'>글쓰기</Link>
         </div>
         <div className="bg-white shadow-md rounded-lg">
           <div className="min-w-full">
@@ -64,7 +63,7 @@ export default function Post(){
                 return(
                   <ul key={i} className='flex justify-between'>
                     <li className='px-6 basis-2/12 py-3 text-center'>{posts.length - i}</li>
-                    <li className='px-6 basis-6/12 py-3 text-center'><Link href={`/post/${e.id}`}>{e.title}</Link></li>
+                    <li className='px-6 basis-6/12 py-3 text-center'>{e.title}</li>
                     <li className='px-6 basis-2/12 py-3 text-center'>{e.author}</li>
                     <li className='px-6 basis-2/12 py-3 text-center'>{formatDate}</li>
                   </ul>
@@ -81,7 +80,7 @@ export default function Post(){
       Array(endPage - startPage + 1).fill(null).map((_,i)=>{
         const pageNumber = i + startPage;
         return(
-          <button key={pageNumber} onClick={()=>{setPage(pageNumber)}} className={`${page === pageNumber ? 'bg-teal-500 text-white' : 'bg-white text-black'} border px-1.5 py-1 rounded text-sm basis-8`}>{pageNumber}</button>
+          <button key={pageNumber} onClick={()=>{setPage(pageNumber)}} className={`${page === pageNumber ? 'bg-orange-500 text-white' : 'bg-white text-black'} border px-1.5 py-1 rounded text-sm basis-8`}>{pageNumber}</button>
         )
       })
     }

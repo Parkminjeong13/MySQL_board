@@ -47,16 +47,10 @@ export default function Comment(props: CommentProps){
     username: session?.user?.name ?? '',
     content: ''
   })
-  useEffect(()=>{
-    setFormData({
-      parentid : id,
-      userid : session?.user?.email ?? '',
-      username : session?.user?.name ?? '',
-      content : ''
-    })
-  }, [session?.user.name, session?.user.email, id])
   const [totalComment, setTotalComment] = useState<CommentType[]>();
+
   const commentValue = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    // setComment(e.target.value);
     setFormData({...formData, [e.target.name] : e.target.value});
   }
   const params = useParams();
@@ -69,8 +63,10 @@ export default function Comment(props: CommentProps){
     fetchData()
   },[params.id])
 
-  const cmtSubmit = async ()=>{   
+  const cmtSubmit = async ()=>{
+    
     try{
+
       const res = await fetch ('/api/comment', {
         method : 'POST',
         headers : {
@@ -82,40 +78,42 @@ export default function Comment(props: CommentProps){
         const data = await res.json();
         setTotalComment(data.result)
       }
+
     }catch(error){
       console.log(error);
     }
+
   }
+
+
+
+
   return(
     <>
       {
         session && session.user && <>
-          <p className="text-lg mb-4">댓글 목록</p>
+          <p>댓글 목록</p>
           {
             totalComment && totalComment.map((e,i)=>{
               const date = new Date(e.date);
+                // date.setTime(date.getTime()+(60*60*9*1000))
                 const year = date.getFullYear();
                 const month = (date.getMonth() + 1).toString().padStart(2, '0');
                 const day = date.getDate().toString().padStart(2, '0')
-                const hours = date.getHours().toString().padStart(2, '0')
+                const hours = (date.getHours()+9).toString().padStart(2, '0')
                 const minutes = date.getMinutes().toString().padStart(2, '0')
                 const seconds = date.getSeconds().toString().padStart(2, '0')
                 const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
               return (
-                <div key={i} className="p-4 mb-4 bg-white rounded shadow-md">
-                  <p className="font-bold text-teal-500">작성자 : {e.username}</p>
-                  <p className="py-2 text-gray-700">{e.content}</p>
-                  <p className="mt-2 text-sm text-gray-500">{formatDate}</p>
-                </div>
+                <p key={i}>{formatDate}</p>
               )
             })
           }
-          <div className="flex items-center my-4">
-            <input name="content" type="text" onChange={commentValue} className="flex-grow border p-2 mr-2 border-teal-500 rounded " />
-            <button onClick={cmtSubmit} className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600">댓글 전송</button>
-          </div>
+          <input name="content" type="text" onChange={commentValue} className="border p-2 border-orange-500 rounded " />
+          <button onClick={cmtSubmit}>댓글 전송</button>
         </>
       }
-    </>    
+    </>
+    
   )
 }

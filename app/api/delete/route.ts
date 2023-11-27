@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from '@/db'
+import { RowDataPacket } from "mysql2";
 interface PostNumber {
   id: number;
+  pathUrl ?: string;
 }
 
 export const POST = async (
@@ -9,15 +11,24 @@ export const POST = async (
 ) : Promise<NextResponse> =>{
 
   if(req.method === 'POST'){
+    const {id, pathUrl}: PostNumber = JSON.parse(await req.text());
     try{
-      const {id}: PostNumber = JSON.parse(await req.text());
-      // console.log(id)
       if(!id){
         return NextResponse.json({message: "데이터가 부족합니다."});
+      }
+      if(pathUrl === 'member'){
+        const [chkMember] = await db.query<RowDataPacket[]>('select level from test.member where id = ?', [id]);
+        if(chkMember[0].level === 10){
+          return NextResponse.json({message:"관리자는 삭제할 수 없습니다."});
+        }else{
+          await db.query<RowDataPacket[]>('delete from test.member where id = ?', [id]);
+          return NextResponse.json({message:"정상적으로 삭제 되었습니다."});
+        }
       }else{
-        await db.query('delete from test.board where id = ?', [id]);
+        // await db.query('delete from test.board where id = ?', [id]);
         return NextResponse.json({message:"정상적으로 삭제 되었습니다."});
       }    
+
     }catch(error){
       return NextResponse.json({error: "에러"});
     }
