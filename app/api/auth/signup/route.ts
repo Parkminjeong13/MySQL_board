@@ -18,7 +18,6 @@ export const POST = async (
 ) : Promise<NextResponse> =>{
   if(req.method === 'POST'){
     let {email, password, name, nickname, level, type, id}: formType = JSON.parse(await req.text());
-    console.log(email, password, name, nickname, level, type, id)
     level = level === undefined ? 2 : level;
 
     if(type === 'edit'){
@@ -49,9 +48,10 @@ export const POST = async (
     if(memberCnt > 0){
       return NextResponse.json({message: "해당 이메일이 존재합니다."})
     }else{
-      await db.query('insert into test.member (email, password, name) values(?,?,?)',[email, hash, name]);
+      await db.query('insert into test.member (email, password, name, nickname, level) values(?,?,?,?,?)',[email, hash, name, nickname, level]);
       const data = {
         email : email,
+        nickname : nickname,
         password : password
       }
 
