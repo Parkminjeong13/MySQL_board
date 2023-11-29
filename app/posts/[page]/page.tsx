@@ -51,7 +51,7 @@ export default async function PostsList({
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-semibold">게시판</h1>
           {
-            sessions && <Link href="/write" className='bg-orange-500 text-white px-4 py-2 rounded shadow-md hover:bg-orange-600'>글쓰기</Link>
+            sessions && <Link href="/write" className='bg-teal-500 text-white px-4 py-2 rounded shadow-md hover:bg-teal-600'>글쓰기</Link>
           }
           
         </div>

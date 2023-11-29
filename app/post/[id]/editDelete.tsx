@@ -38,10 +38,10 @@ export default function EditDelete({results} : propsType){
         {
         session && session.user && (
           (results && results && session.user.email === results.userid) || session.user.level === 10
-        )  && <>
-        <Link href={`/`} className="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600">수정</Link>
+        )  && <><div className="flex justify-end space-x-4">
+        <Link href={`/edit/${results.id}`} className="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600">수정</Link>
         <button onClick={()=>{deletePost(results.id)}} className="bg-orange-500 text-white px-4 py-2 rounded shadow-md hover:bg-orange-600">삭제</button>
-        
+        </div>
         </>
       }
       </React.Fragment>

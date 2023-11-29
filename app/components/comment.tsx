@@ -92,7 +92,7 @@ export default function Comment(props: CommentProps){
     <>
       {
         session && session.user && <>
-          <p>댓글 목록</p>
+          <p className="text-xl mb-4">댓글 목록</p>
           {
             totalComment && totalComment.map((e,i)=>{
               const date = new Date(e.date);
@@ -105,12 +105,18 @@ export default function Comment(props: CommentProps){
                 const seconds = date.getSeconds().toString().padStart(2, '0')
                 const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
               return (
-                <p key={i}>{formatDate}</p>
+                <div key={i} className="p-2 mb-2 bg-gray-100 rounded shadow-md">
+                  <p>작성자 : {e.username}</p>
+                  <p>{e.content}</p>
+                  <p className="mt-2 text-sm">{formatDate}</p>
+                </div>
               )
             })
           }
-          <input name="content" type="text" onChange={commentValue} className="border p-2 border-orange-500 rounded " />
-          <button onClick={cmtSubmit}>댓글 전송</button>
+          <div className="flex items-center my-4">
+            <input name="content" type="text" onChange={commentValue} className="flex-grow border p-2 mr-2 border-teal-500 rounded " />
+            <button onClick={cmtSubmit} className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600">댓글 전송</button>
+          </div>
         </>
       }
     </>
